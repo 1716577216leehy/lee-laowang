@@ -1,966 +1,392 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeFlow | Visual Development Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>小泽钰的小窝~</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9fbfd;
-        }
-        
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header & Navigation */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            color: #4361ee;
-            font-size: 28px;
-            margin-right: 10px;
-        }
-        
-        .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        .logo-text span {
-            color: #4361ee;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #4361ee;
-        }
-        
-        .cta-button {
-            background-color: #4361ee;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        
-        .cta-button:hover {
-            background-color: #3a56d4;
-            transform: translateY(-2px);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #333;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #f9fbfd 100%);
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-right: 40px;
-        }
-        
-        .hero-text h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        
-        .hero-text h1 span {
-            color: #4361ee;
-        }
-        
-        .hero-text p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .secondary-button {
-            background-color: white;
-            color: #4361ee;
-            border: 2px solid #4361ee;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .secondary-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.15);
-        }
-        
-        /* Features Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: #222;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .features {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            background-color: #eef2ff;
-            color: #4361ee;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            padding: 100px 0;
-            background-color: #f0f4ff;
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .benefit-item {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .benefit-icon {
-            color: #4361ee;
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-        
-        .benefit-item h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .benefit-item p {
-            color: #666;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .testimonial {
-            background: #f9fbfd;
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 30px;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #4361ee;
-            font-size: 24px;
-        }
-        
-        .author-info h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        /* Pricing Section */
-        .pricing {
-            padding: 100px 0;
-            background-color: #f9fbfd;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .pricing-card {
-            background: white;
-            border-radius: 10px;
-            padding: 40px 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .pricing-card.featured {
-            border-top: 5px solid #4361ee;
-            transform: scale(1.05);
-            position: relative;
-        }
-        
-        .featured-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #4361ee;
-            color: white;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-        
-        .plan-name {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .plan-price {
-            font-size: 48px;
-            font-weight: 700;
-            color: #4361ee;
-            margin-bottom: 20px;
-        }
-        
-        .plan-price span {
-            font-size: 16px;
-            color: #777;
-        }
-        
-        .plan-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .plan-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            color: #555;
-        }
-        
-        .plan-features li:last-child {
-            border-bottom: none;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
-            text-align: center;
-            color: white;
-        }
-        
-        .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        
-        .cta-section p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .cta-section .cta-button {
-            background-color: white;
-            color: #4361ee;
-            font-size: 16px;
-            padding: 15px 40px;
-        }
-        
-        .cta-section .cta-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 70px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-column h3 {
-            font-size: 20px;
-            color: white;
-            margin-bottom: 25px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: #4361ee;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            font-size: 14px;
-            color: #888;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
-                text-align: center;
-            }
-            
-            .hero-text p {
-                margin: 0 auto 30px;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-text h1 {
-                font-size: 36px;
-            }
-            
-            .section-title h2 {
-                font-size: 30px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-buttons button {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 130px 0 80px;
-            }
-            
-            .features, .benefits, .testimonials, .pricing, .cta-section {
-                padding: 70px 0;
-            }
-            
-            .feature-card, .testimonial {
-                padding: 25px;
-            }
-            
-            .plan-price {
-                font-size: 36px;
-            }
-        }
+        :root { 
+            --p: #ff8fa3; --s: #ffb3c1; --bg: #f2e6e8; 
+            --glass: rgba(255, 255, 255, 0.82);
+            --app-bg: rgba(255, 245, 247, 0.65); 
+            --radius: 40px;
+            --m-mint: #e4f9e6; --m-purple: #f3efff; --m-gold: #fff9e6; --m-pink: #fff0f3;
+            --boy-blue: #74b9ff;
+            --text: #5f5456;
+        }
+
+        body.dark-mode {
+            --p: #ff758c; --s: #4a3b3e; --bg: #1a1a24; 
+            --glass: rgba(40, 35, 45, 0.85); --app-bg: rgba(30, 25, 35, 0.6);
+            --text: #d1c1c4;
+            --m-mint: #2d3d31; --m-purple: #343045; --m-gold: #453e2d; --m-pink: #452d35;
+        }
+
+        /* --- 全局布局：彻底消除左右晃动 --- */
+        * { box-sizing: border-box; }
+        
+        body { 
+            margin: 0; font-family: "Quicksand", "Varela Round", "PingFang SC", sans-serif; 
+            color: var(--text); overflow: hidden; height: 100dvh; display: flex; flex-direction: column;
+            background: var(--bg); transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-font-smoothing: antialiased;
+            touch-action: pan-y;
+        }
+
+        /* --- 滚轮美化 --- */
+        ::-webkit-scrollbar { width: 4px; height: 0; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 143, 163, 0.3); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--p); }
+        .list-area { scrollbar-width: thin; scrollbar-color: rgba(255, 143, 163, 0.3) transparent; }
+
+        .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, var(--bg) 0%, var(--s) 100%); opacity: 0.4; }
+        .hidden { display: none !important; }
+        .container { max-width: 450px; margin: 0 auto; width: 100%; height: 100%; padding: 15px; box-sizing: border-box; display: flex; flex-direction: column; z-index: 10; position: relative; overflow-x: hidden; }
+
+        .timer-card { padding: 25px 15px; text-align: center; }
+        .timer-val { font-size: 1.4rem; font-weight: 800; color: var(--p); line-height: 1.4; }
+
+        .app-dock { background: var(--app-bg); border-radius: 45px; padding: 20px 15px; backdrop-filter: blur(12px); border: 2px solid rgba(255,255,255,0.2); margin-top: 10px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .menu-item { border-radius: 30px; height: 95px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold; transition: 0.3s; cursor: pointer; border: 1.5px solid rgba(255,255,255,0.2); }
+        .menu-item .icon { font-size: 2.1rem; margin-bottom: 2px; }
+        .item-album { background: var(--m-mint); color: #69b3a2; }
+        .item-memo { background: var(--m-purple); color: #8e7cc3; }
+        .item-gacha { background: var(--m-gold); color: #d4a373; }
+        .item-miss { background: var(--m-pink); color: var(--p); }
+
+        .card { background: var(--glass); border-radius: var(--radius); padding: 35px 25px; border: 1.5px solid rgba(255,255,255,0.2); box-shadow: 0 15px 40px rgba(0,0,0,0.06); backdrop-filter: blur(25px); display: flex; flex-direction: column; max-height: 85%; overflow-x: hidden; }
+        
+        /* --- 按钮与输入框视觉对齐规范 --- */
+        .btn { width: 100%; padding: 14px 16px; border-radius: 50px; border: none; font-weight: 900; cursor: pointer; transition: 0.2s; font-size: 0.95rem; margin-bottom: 10px; font-family: inherit; display: inline-flex; align-items: center; justify-content: center; }
+        .btn:active { transform: scale(0.96); }
+        .btn-back { background: var(--m-pink); color: var(--p); margin-top: 10px; margin-bottom: 0; }
+        .btn-save { background: var(--m-purple); color: #8e7cc3; }
+        .btn-add { background: var(--m-mint); color: #69b3a2; }
+        .btn-danger { background: var(--p); color: #fff; }
+
+        .btn-mini { padding: 8px 16px !important; font-size: 0.8rem !important; border-radius: 15px !important; width: auto !important; margin-bottom: 0 !important; font-weight: bold; }
+        
+        .flex-row { display: flex; gap: 10px; align-items: center; width: 100%; }
+        .flex-row .btn { flex: 1; margin-bottom: 0; padding: 12px 16px !important; font-size: 0.9rem; }
+
+        .view-header-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; width: 100%; }
+
+        .mgr-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
+        .mgr-table th { text-align: left; padding: 8px; color: var(--p); border-bottom: 2px solid var(--s); }
+        .mgr-table td { padding: 8px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .mgr-input { width: 100%; border: none; background: rgba(255,255,255,0.5); padding: 6px; border-radius: 8px; outline: none; color: var(--text); font-family: inherit; font-size: 12px; }
+        
+        .coupon-card { background: white; border-radius: 20px; padding: 15px; margin-bottom: 12px; border: 2px dashed var(--s); position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.03); text-align: left; }
+
+        .album-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+        .group-card { background: white; padding: 15px 10px; border-radius: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; border: 1.5px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.02); min-height: 100px; }
+        .group-card .album-name { font-weight: bold; font-size: 0.8rem; margin-top: 5px; opacity: 0.8; text-align: center; }
+
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+        .photo-item { background: #fff; padding: 5px 5px 15px 5px; box-shadow: 0 5px 12px rgba(0,0,0,0.05); transform: rotate(var(--r)); cursor: pointer; border-radius: 2px; }
+        .photo-item img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 1px; }
+
+        input, textarea { width: 100%; border-radius: 20px; border: none; padding: 12px 16px; box-sizing: border-box; margin-bottom: 10px; font-size: 14px; outline: none; background: rgba(255,255,255,0.4); color: var(--text); font-family: inherit; }
+        input:focus, textarea:focus { background: rgba(255,255,255,0.6); }
+
+        /* --- 列表区：禁止左右滚动，气泡自动换行 (已移除平滑滚动效果) --- */
+        .list-area { margin-top: 5px; flex: 1; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; min-height: 0; }
+        .bubble { padding: 12px 16px; border-radius: 22px; margin: 6px 0; font-size: 13.5px; max-width: 85%; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; }
+        .bubble-left { background: rgba(255,255,255,0.85); align-self: flex-start; border-bottom-left-radius: 4px; color: #444; }
+        .bubble-right { background: var(--p); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+
+        .controls-wrapper { position: fixed; top: 12px; right: 12px; z-index: 100; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+        #music-player { background: var(--glass); padding: 6px 12px; border-radius: 40px; border: 1.5px solid rgba(255,255,255,0.3); display: flex; align-items: center; gap: 6px; scale: 0.8; }
+        #music-player button { background: none; border: none; font-size: 1rem; cursor: pointer; color: var(--text); }
+        #theme-btn { width: 40px; height: 40px; background: var(--glass); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255,255,255,0.3); cursor: pointer; font-size: 1.1rem; margin-right: 5px; }
+        .accounting-entry { position: absolute; bottom: calc(20px + env(safe-area-inset-bottom)); right: 20px; width: 58px; height: 58px; background: var(--glass); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(0,0,0,0.1); font-size: 28px; cursor: pointer; z-index: 100; border: 2.5px solid var(--s); }
+
+        #viewer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; display: none; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(15px); }
+        #viewer-img { max-width: 85%; max-height: 55vh; border-radius: 15px; border: 5px solid #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+
+        @media (max-width: 480px) {
+            .timer-val { font-size: 1.3rem; }
+            .card { padding: 30px 20px; }
+        }
+
+        @keyframes bdPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                    <div class="logo-text">Code<span>Flow</span></div>
-                </div>
-                
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#">Resources</a></li>
-                </ul>
-                
-                <button class="cta-button">Start Free Trial</button>
-                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-            </nav>
-        </div>
-    </header>
+    <div class="bg-layer"></div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Build Apps Faster With <span>Visual Development</span></h1>
-                    <p>CodeFlow empowers teams to create enterprise-grade applications with minimal coding. Drag, drop, and connect components to build powerful web and mobile apps in record time.</p>
-                    <div class="hero-buttons">
-                        <button class="cta-button">Start Building Free</button>
-                        <button class="secondary-button">Watch Demo</button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CodeFlow Platform Interface">
-                </div>
-            </div>
+    <div class="controls-wrapper">
+        <div id="music-player">
+            <button onclick="prevMusic()">⏮️</button>
+            <button id="play-btn" onclick="toggleMusic()">▶️</button>
+            <button onclick="nextMusic()">⏭️</button>
+            <input type="range" min="0" max="1" step="0.1" value="0.5" onchange="audio.volume=this.value" style="width:20px;">
         </div>
-    </section>
+        <div id="theme-btn" onclick="toggleTheme()">🌙</div>
+    </div>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Powerful Features for Rapid Development</h2>
-                <p>CodeFlow provides all the tools you need to build, deploy, and scale applications without writing extensive code.</p>
+    <div class="container">
+        <div id="login-view" class="card" style="margin-top: 12vh;">
+            <h2 id="login-title" style="color:var(--p); text-align:center; font-size: 1.5rem; margin-bottom: 25px;">恭迎陛下登基~ ✨</h2>
+            <div id="user-selector">
+                <button class="btn" style="background:var(--p); color:#fff;" onclick="showPassInput('黄泽钰')">我是 小皇帝 🌸</button>
+                <button class="btn" style="background:var(--boy-blue); color:#fff;" onclick="showPassInput('李鸿运')">我是 李鸿运 ☁️</button>
             </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-th-large"></i>
-                    </div>
-                    <h3>Visual Builder</h3>
-                    <p>Drag and drop UI components to design responsive interfaces. Connect data sources with simple point-and-click actions.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Database Integration</h3>
-                    <p>Connect to any data source with built-in connectors. Automatically generate CRUD operations without writing SQL.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Cross-Platform</h3>
-                    <p>Build once, deploy everywhere. Generate applications for web, iOS, and Android from a single visual design.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Extensible with Code</h3>
-                    <p>Add custom functionality with JavaScript when needed. Our platform doesn't limit your creativity or complexity.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Built-in authentication, authorization, and data encryption. SOC2 compliant with enterprise-grade security features.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>One-Click Deployment</h3>
-                    <p>Deploy to cloud or on-premises with a single click. Automatic scaling and monitoring included.</p>
-                </div>
+            <div id="pass-area" class="hidden">
+                <input type="password" id="pass-val" placeholder="输入口令..." style="margin-top: 5px;">
+                <button class="btn btn-save" onclick="verifyLogin()">确认进入 ✨</button>
+                <button class="btn btn-back" style="font-size:12px; padding: 10px!important;" onclick="cancelLogin()">返回</button>
             </div>
         </div>
-    </section>
 
-    <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose CodeFlow?</h2>
-                <p>Join thousands of companies accelerating their digital transformation with low-code development.</p>
-            </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>10x Faster Development</h3>
-                    <p>Build applications in days instead of months with visual development tools.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Reduce Costs by 70%</h3>
-                    <p>Lower development and maintenance costs with fewer resources required.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Citizen Developers</h3>
-                    <p>Enable business users to build solutions with minimal IT assistance.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Scale Effortlessly</h3>
-                    <p>From prototype to enterprise-scale applications with the same platform.</p>
+        <div id="main-view" class="hidden" style="margin-top: 3vh;">
+            <div class="card timer-card"><div id="love-timer" class="timer-val">加载中...</div></div>
+            <div class="app-dock">
+                <div class="menu-grid">
+                    <div class="menu-item item-album" onclick="openSection('album_groups')"><span class="icon">📂</span>相册</div>
+                    <div class="menu-item item-memo" onclick="openSection('memo')"><span class="icon">📖</span>回忆录</div>
+                    <div class="menu-item item-gacha" onclick="openSection('gacha')"><span class="icon">🎰</span>抽奖机</div>
+                    <div class="menu-item item-miss" onclick="missYou()"><span class="icon">❤️</span>想你啦</div>
                 </div>
             </div>
+            <div id="wish-entry" class="hidden" style="margin-top:15px;"><button class="btn" style="background:#fff; color:var(--p); border:2.5px dashed var(--p); height:50px;" onclick="openSection('wishes')">🌟 愿望清单</button></div>
         </div>
-    </section>
 
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Trusted by Industry Leaders</h2>
-                <p>See what our customers have to say about their experience with CodeFlow.</p>
+        <div id="content-view" class="card hidden" style="margin-top:10px; flex:1;">
+            <div class="view-header-box">
+                <h3 id="view-title" style="color:var(--p); margin:0; font-size: 1.2rem;">标题</h3>
+                <div id="view-header"></div>
             </div>
-            
-            <div class="testimonial-slider">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SC</div>
-                        <div class="author-info">
-                            <h4>Sarah Chen</h4>
-                            <p>CTO, TechGrowth Inc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="view-body" class="list-area"></div>
+            <div id="input-area" style="margin-top:10px; flex-shrink: 0;"></div>
+            <button id="global-back-btn" class="btn btn-back" onclick="backAction()">🔙 返回主页</button>
         </div>
-    </section>
+    </div>
 
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>Simple, Transparent Pricing</h2>
-                <p>Choose the plan that fits your needs. All plans include core features with no hidden fees.</p>
-            </div>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="plan-name">Starter</h3>
-                    <div class="plan-price">$29<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 5 users</li>
-                        <li>10 GB storage</li>
-                        <li>Basic components</li>
-                        <li>Community support</li>
-                        <li>1 production app</li>
-                    </ul>
-                    <button class="secondary-button">Get Started</button>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="featured-badge">Most Popular</div>
-                    <h3 class="plan-name">Professional</h3>
-                    <div class="plan-price">$89<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 25 users</li>
-                        <li>100 GB storage</li>
-                        <li>All components</li>
-                        <li>Priority support</li>
-                        <li>10 production apps</li>
-                        <li>Custom branding</li>
-                    </ul>
-                    <button class="cta-button">Try Free for 14 Days</button>
-                </div>
-                
-                <div class="pricing-card">
-                    <h3 class="plan-name">Enterprise</h3>
-                    <div class="plan-price">Custom</div>
-                    <ul class="plan-features">
-                        <li>Unlimited users</li>
-                        <li>Unlimited storage</li>
-                        <li>All features included</li>
-                        <li>24/7 dedicated support</li>
-                        <li>Unlimited apps</li>
-                        <li>On-premises option</li>
-                    </ul>
-                    <button class="secondary-button">Contact Sales</button>
-                </div>
-            </div>
+    <div id="viewer-overlay" onclick="closeViewer()">
+        <img id="viewer-img" src="">
+        <div style="margin-top:20px; display:flex; gap:10px; width:82%;" onclick="event.stopPropagation()">
+            <button class="btn btn-save" id="v-dl-btn">📥 下载</button>
+            <button class="btn btn-danger" id="v-del-btn">🗑️ 删除</button>
         </div>
-    </section>
+    </div>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Start Building Today</h2>
-            <p>Join over 10,000 companies that use CodeFlow to accelerate their application development. No credit card required for the free trial.</p>
-            <button class="cta-button">Get Started for Free</button>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <div class="logo">
-                        <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                        <div class="logo-text">Code<span>Flow</span></div>
-                    </div>
-                    <p style="margin-top: 20px; color: #aaa;">The leading visual development platform for building enterprise applications with minimal coding.</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Product</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Use Cases</a></li>
-                        <li><a href="#">Integrations</a></li>
-                        <li><a href="#">Roadmap</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 CodeFlow. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <audio id="audio-element" preload="auto"></audio>
 
     <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            
-            // Adjust for mobile
-            if (window.innerWidth <= 768) {
-                if (navLinks.style.display === 'flex') {
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '80px';
-                    navLinks.style.left = '0';
-                    navLinks.style.width = '100%';
-                    navLinks.style.backgroundColor = 'white';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                    
-                    const navItems = document.querySelectorAll('.nav-links li');
-                    navItems.forEach(item => {
-                        item.style.margin = '10px 0';
-                    });
-                }
-            }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if(window.innerWidth <= 768) {
-                        document.querySelector('.nav-links').style.display = 'none';
-                    }
-                }
-            });
-        });
-        
-        // Simple testimonial slider
-        const testimonials = [
-            {
-                text: "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions.",
-                name: "Sarah Chen",
-                position: "CTO, TechGrowth Inc.",
-                initials: "SC"
-            },
-            {
-                text: "We reduced our app development time by 80% using CodeFlow. The visual interface made it easy for our analysts to build data dashboards without waiting for IT resources.",
-                name: "Marcus Johnson",
-                position: "Director of Operations, DataCorp",
-                initials: "MJ"
-            },
-            {
-                text: "As a non-technical founder, CodeFlow allowed me to build our MVP in just 2 months. I could test ideas quickly and iterate based on user feedback without deep coding knowledge.",
-                name: "Lisa Wang",
-                position: "Founder, StartupLabs",
-                initials: "LW"
-            }
-        ];
-        
-        let currentTestimonial = 0;
-        const testimonialElement = document.querySelector('.testimonial');
-        
-        function rotateTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            updateTestimonial();
+        const CONFIG = { 
+            API: "https://back.990727.xyz",
+            SECRET: "171657lhyY.", 
+            BIRTHDAY_MODE: false, 
+            START: new Date(2026, 0, 9, 22, 51, 0),
+            storyLines: ["这份代码会保存到2027年1月1日", "或许你有一天心血来潮会看见这些", "但是一切都过去了", "我感谢你的坦诚", "也为你的离开而难受", "至于恨，我做不到", "我不是什么善于言表的人", "对于分手我只能说好", "对于离别我也做不到挽留", "无论你是否看见", "都希望你能够开心", "谢谢你的陪伴", "像是做了一场漫长的梦", "还好，至少醒来之前是个美梦"],
+            fallingIcons: ['❄️', '🎁', '🎂', '🌸', '✨']
+        };
+
+        const playlist = [`${CONFIG.API}?musicId=1`, `${CONFIG.API}?musicId=2`, `${CONFIG.API}?musicId=3` ];
+        let currentUser = "", currentMusicIdx = -1, lastGachaConfig = null, tempPool = [], pendingUser = "", currentGroup = "", viewingId = null;
+        const audio = document.getElementById('audio-element');
+
+        function toggleTheme() { const isDark = document.body.classList.toggle('dark-mode'); document.getElementById('theme-btn').innerText = isDark ? '☀️' : '🌙'; localStorage.setItem('love-theme', isDark ? 'dark' : 'light'); }
+        if(localStorage.getItem('love-theme') === 'dark') { document.body.classList.add('dark-mode'); document.getElementById('theme-btn').innerText = '☀️'; }
+
+        async function api(action, data = {}) { try { const r = await fetch(CONFIG.API, { method: "POST", body: JSON.stringify({ action, user: currentUser, secret: CONFIG.SECRET, ...data }) }); return await r.json(); } catch(e) { return { status: "error" }; } }
+        function getBJTime() { return new Date(Date.now() + (8 * 3600000) + (new Date().getTimezoneOffset() * 60000)); }
+
+        function showPassInput(u) { pendingUser = u; document.getElementById('user-selector').classList.add('hidden'); document.getElementById('pass-area').classList.remove('hidden'); }
+        function cancelLogin() { document.getElementById('user-selector').classList.remove('hidden'); document.getElementById('pass-area').classList.add('hidden'); }
+        function verifyLogin() {
+            const p = document.getElementById('pass-val').value;
+            if((pendingUser==='黄泽钰' && p==='ilovelhy') || (pendingUser==='李鸿运' && p==='ilovehzy')) {
+                currentUser = pendingUser; document.getElementById('login-view').classList.add('hidden');
+                nextMusic(); enterMain();
+            } else { alert("不对哟~"); document.getElementById('pass-val').value = ""; }
         }
-        
-        function updateTestimonial() {
-            const testimonial = testimonials[currentTestimonial];
-            testimonialElement.innerHTML = `
-                <div class="testimonial-text">"${testimonial.text}"</div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">${testimonial.initials}</div>
-                    <div class="author-info">
-                        <h4>${testimonial.name}</h4>
-                        <p>${testimonial.position}</p>
-                    </div>
-                </div>
-            `;
+
+        function enterMain() {
+            document.getElementById('main-view').classList.remove('hidden'); 
+            setInterval(updateTimer, 1000);
+            if (getBJTime() >= new Date(2026, 11, 24)) document.getElementById('wish-entry').classList.remove('hidden');
+            if(currentUser === '李鸿运') {
+                const entry = document.createElement('div'); entry.className = 'accounting-entry'; entry.id = 'complaint-entry'; entry.innerHTML = '⛈️';
+                entry.onclick = () => openSection('complaint'); document.getElementById('main-view').appendChild(entry);
+            }
+            checkBirthday();
         }
-        
-        // Auto-rotate testimonials every 5 seconds
-        setInterval(rotateTestimonial, 5000);
-        
-        // CTA button interactions
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                alert('Thank you for your interest in CodeFlow! You would be redirected to the signup page in a real implementation.');
+
+        function updateTimer() {
+            const diff = getBJTime() - CONFIG.START;
+            const d = Math.floor(diff/86400000); const h = Math.floor((diff%86400000)/3600000); const m = Math.floor((diff%3600000)/60000); const s = Math.floor((diff%60000)/1000);
+            document.getElementById('love-timer').innerHTML = `<br>${d}天 ${h}时${m}分${s}秒`;
+        }
+
+        async function openSection(type) {
+            const body = document.getElementById('view-body'), input = document.getElementById('input-area'), header = document.getElementById('view-header'), gBack = document.getElementById('global-back-btn');
+            document.getElementById('main-view').classList.add('hidden'); document.getElementById('content-view').classList.remove('hidden');
+            body.innerHTML = "同步中... ✨"; input.innerHTML = ""; header.innerHTML = ""; gBack.classList.remove('hidden');
+
+            if(type === 'memo') {
+                document.getElementById('view-title').innerText = "📖 我们的回忆录";
+                gBack.classList.add('hidden'); 
+                header.innerHTML = `<button class="btn btn-add btn-mini" onclick="checkMissMe()">💭 谁在想谁？</button>`;
+                const res = await api('getMemos');
+                // 恢复原始的“旧的在上，最新在下”规则
+                renderMemos(res.data || []); 
+                input.innerHTML = `<textarea id="memo-val" rows="1" placeholder="此刻的心情..." style="margin-bottom:8px;"></textarea><div class="flex-row"><button class="btn btn-save" onclick="saveMemo()">发送~</button><button class="btn btn-back" onclick="backAction()">🔙 返回主页</button></div>`;
+                // 给浏览器极短时间渲染DOM，然后瞬间置底
+                setTimeout(() => { body.scrollTop = body.scrollHeight; }, 10);
+            } else if(type === 'album_groups') {
+                document.getElementById('view-title').innerText = "📂 相册分组";
+                const res = await api('getGroups');
+                body.innerHTML = `<div class="album-grid">` + (res.data || []).map(g => `<div class="group-card" onclick="openGroup('${g}')"><span style="font-size:2.5rem">📁</span><span class="album-name">${g}</span></div>`).join('') + `</div>`;
+                input.innerHTML = `<input id="new-group-name" placeholder="分组名..."><button class="btn btn-add" onclick="addGroup()">＋ 新建分组</button>`;
+            } else if(type === 'gacha') {
+                document.getElementById('view-title').innerText = "🎰 惊喜抽奖机";
+                lastGachaConfig = await api('getCouponConfig');
+                if(currentUser === '黄泽钰') {
+                    header.innerHTML = `<button class="btn btn-add btn-mini" style="background:var(--m-gold); color:#d4a373;" onclick="doDraw()">🎰 开启惊喜</button>`;
+                    body.innerHTML = `<div style="font-weight:bold; margin-bottom:10px; color:var(--p); font-size:0.9rem; text-align:center;">${lastGachaConfig.canDraw ? '✨ 本周惊喜已就绪' : '⏳ 下次开启：'+lastGachaConfig.nextDate}</div><div style="font-weight:bold; margin-bottom:10px; color:var(--p); font-size:0.9rem;">🎒 我的包包：</div>` + (lastGachaConfig.myCoupons || []).reverse().map(c => `<div class="coupon-card"><div style="font-weight:bold; font-size:1rem; color:var(--p)">${c.title}</div><div style="font-size:11px; opacity:0.8; margin:3px 0;">${c.desc}</div>${c.status === 0 ? `<button class="btn btn-save btn-mini" style="margin-top:6px;" onclick="applyCpn('${c.id}')">使用</button>` : c.status === 1 ? `<div style="margin-top:6px; color:var(--p); font-size:11px; font-weight:bold;">⏳ 正在赶来...</div>` : `已核销`}</div>`).join('');
+                } else {
+                    header.innerHTML = `<button class="btn btn-add btn-mini" onclick="openPoolMgr()">⚙️ 奖池精修</button>`;
+                    const res = await api('getAllRecords'); const pending = (res.data || []).filter(r => r.status === 1);
+                    body.innerHTML = `<h3>📋 核销待办：</h3>` + (pending.length > 0 ? pending.map(r => `<div class="coupon-card"><b>${r.from} 申请：${r.title}</b><br><small>留言：${r.applyNote || '无'}</small><br><button class="btn btn-save btn-mini" style="margin-top:6px;" onclick="confirmCpn('${r.id}')">确认履行</button></div>`).join('') : `<div style="padding:20px; opacity:0.6; text-align:center; font-size:12px;">暂无申请</div>`);
+                }
+            } else if(type === 'complaint') {
+                document.getElementById('view-title').innerText = "🌩️ 坏情绪小本本";
+                header.innerHTML = ``;
+                body.innerHTML = `<div style="background:rgba(255,255,255,0.2); padding:12px; border-radius:25px; margin-bottom:15px;"><input type="text" id="cp-type" placeholder="发生了什么？"><textarea id="cp-content" rows="2" placeholder="心里话..."></textarea><button class="btn btn-danger" style="margin-bottom:0;" onclick="saveComplaint()">😤 记仇！</button></div><div id="complaint-list"></div>`;
+                const res = await api('getComplaints');
+                const list = (res.data || []).reverse();
+                document.getElementById('complaint-list').innerHTML = list.map(item => `<div class="complaint-item" style="background:rgba(255,255,255,0.4); padding:15px; border-radius:22px; margin-bottom:12px;"><small>📅 ${item.date} | ✨ ${item.type}</small><div style="font-size:13.5px; margin-top:8px;">${item.content}</div><button class="btn btn-back btn-mini" style="margin-top:10px;" onclick="deleteComplaint(${item.id})">删除</button></div>`).join('');
+            } else if(type === 'wishes') {
+                document.getElementById('view-title').innerText = "🌟 愿望清单";
+                const res = await api('getWishes');
+                body.innerHTML = (res.data || []).map(w => `<div class="bubble bubble-left">🎂 ${w.content}<br><small style="opacity:0.4; font-size:9px;">${w.time}</small></div>`).join('');
+                input.innerHTML = `<input id="new-wish" placeholder="对着流星许愿..."><button class="btn btn-add" onclick="saveWish()">存入星空</button>`;
+                setTimeout(() => { body.scrollTop = body.scrollHeight; }, 10);
+            }
+        }
+
+        async function openGroup(name) { 
+            currentGroup = name; document.getElementById('view-title').innerText = `🖼️ ${name}`; 
+            const res = await api('getPhotos', { groupName: name }); 
+            const photos = (res.data || []).reverse();
+            const tilt = (id) => { let h = 0; for(let i=0;i<id.length;i++) h = (h*31+id.charCodeAt(i))&0xffff; return ((h%40)-20)/10; };
+            document.getElementById('view-body').innerHTML = `<div class="photo-grid">` + photos.map(p => `<div class="photo-item" style="--r:${tilt(p.id)}deg" onclick="showViewer('${p.id}', '${CONFIG.API}?imgId=${p.id}')"><img src="${CONFIG.API}?imgId=${p.id}" loading="lazy"></div>`).join('') + `</div>`; 
+            document.getElementById('input-area').innerHTML = `<input type="file" id="file-up" style="display:none" accept="image/*" onchange="upPhoto()"><button class="btn btn-add" onclick="document.getElementById('file-up').click()">＋ 上传照片</button><button class="btn btn-back" onclick="openSection('album_groups')">⬅️ 返回分组</button>`; 
+        }
+
+        function renderMemos(data) { const b = document.getElementById('view-body'); b.innerHTML = data.map(m => `<div class="bubble ${m.user===currentUser?'bubble-right':'bubble-left'}" id="${m.memoId}"><b>${m.user}:</b><br>${m.content}<br><small style="opacity:0.6; font-size:8px">${m.time}</small></div>`).join(''); }
+
+        function checkMissMe() { api('getMissStats').then(s => alert(`TA今天想了你 ${s.today || 0} 次啦！❤️\n(PS: 你今天也想了TA ${s.me || 0} 次)`)); }
+        function missYou() { api('missYou').then(() => alert("我也想你啦！❤️")); }
+
+        function saveMemo() { 
+            const v = document.getElementById('memo-val').value; 
+            if(!v) return; 
+            const ta = document.getElementById('memo-val');
+            ta.disabled = true;
+            api('addMemo', { content: v }).then(r => {
+                const b = document.getElementById('view-body');
+                const now = new Date();
+                const timeStr = now.toLocaleString('zh-CN', {timeZone:'Asia/Shanghai'}).replace(/\//g, '-');
+                const div = document.createElement('div');
+                div.className = `bubble bubble-right`;
+                div.innerHTML = `<b>${currentUser}:</b><br>${v}<br><small style="opacity:0.6;font-size:8px">${timeStr}</small>`;
+                b.appendChild(div); 
+                ta.value = ''; ta.disabled = false;
+                setTimeout(() => { b.scrollTop = b.scrollHeight; }, 10);
             });
-        });
+        }
+
+        function upPhoto() { 
+            const f = document.getElementById('file-up').files[0]; 
+            if(!f) return;
+            const btn = document.querySelector('#input-area .btn-add');
+            if(btn) { btn.textContent = '上传中...'; btn.disabled = true; }
+            const reader = new FileReader();
+            reader.onloadend = () => { api('addPhoto', { image: reader.result, groupName: currentGroup }).then(() => openGroup(currentGroup)); };
+            reader.readAsDataURL(f);
+        }
+
+        function checkBirthday() {
+            const isBirthday = CONFIG.BIRTHDAY_MODE || (getBJTime() >= new Date(2026, 11, 24) && getBJTime() < new Date(2026, 11, 25));
+            if(!isBirthday) return;
+            showBirthdayOverlay();
+        }
+
+        function showBirthdayOverlay() {
+            if(document.getElementById('birthday-overlay')) return;
+            const overlay = document.createElement('div');
+            overlay.id = 'birthday-overlay';
+            overlay.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:linear-gradient(135deg,#1a0a1e,#2d0a2e,#1a0a1e);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;`;
+            overlay.innerHTML = `
+                <canvas id="bd-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
+                <div style="position:relative;z-index:2;text-align:center;padding:30px;">
+                    <div id="bd-heart" style="font-size:5rem;animation:bdPulse 1.2s infinite;margin-bottom:20px;">🥹</div>
+                    <div style="font-size:1.8rem;font-weight:900;color:#fff;text-shadow:0 0 20px #ff8fa3;margin-bottom:15px;">可惜再也等不到你的生日</div>
+                    <div style="font-size:1rem;color:rgba(255,255,255,0.8);line-height:1.8;margin-bottom:25px;">小泽钰<br>愿你的每一天都闪亮 ✨<br>我知道枷锁是困不住你的</div>
+                    <div id="bd-story" style="font-size:0.95rem;color:#ffb3c1;min-height:30px;margin-bottom:25px;opacity:0;transition:opacity 0.8s;"></div>
+                    <button onclick="closeBirthday()" style="padding:14px 35px;border-radius:50px;border:2px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.15);color:#fff;font-size:0.95rem;font-weight:bold;cursor:pointer;backdrop-filter:blur(10px);">进入小窝 💕</button>
+                </div>`;
+            document.body.appendChild(overlay);
+
+            const canvas = document.getElementById('bd-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            const particles = [];
+            const colors = ['#ff8fa3','#ffb3c1','#ffd6e0','#fff0f3','#ffe4e1','#ff6b9d','#c9184a'];
+            for(let i=0;i<120;i++) particles.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height-canvas.height, vx:(Math.random()-0.5)*2, vy:Math.random()*2+0.5, r:Math.random()*4+2, c:colors[Math.floor(Math.random()*colors.length)], op:Math.random() });
+            function drawParticles() {
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                particles.forEach(p => {
+                    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+                    ctx.fillStyle=p.c; ctx.globalAlpha=p.op; ctx.fill();
+                    p.y+=p.vy; p.x+=p.vx; p.op-=0.003;
+                    if(p.y>canvas.height||p.op<=0) { p.y=-10; p.x=Math.random()*canvas.width; p.op=Math.random()*0.8+0.2; }
+                });
+                requestAnimationFrame(drawParticles);
+            }
+            drawParticles();
+            const lines = CONFIG.storyLines;
+            let i = 0;
+            const el = document.getElementById('bd-story');
+            const showNext = () => { if(i<lines.length){ el.style.opacity=0; setTimeout(()=>{ el.textContent=lines[i++]; el.style.opacity=1; setTimeout(showNext,2500); },500); } };
+            setTimeout(showNext, 1000);
+        }
+
+        function closeBirthday() { const o = document.getElementById('birthday-overlay'); if(o) { o.style.transition='opacity 0.6s'; o.style.opacity=0; setTimeout(()=>o.remove(),600); } }
+
+        function openPoolMgr() { document.getElementById('view-title').innerText = "⚙️ 奖池精修"; api('getCouponConfig').then(res => { tempPool = res.pool || []; renderPoolTable(); document.getElementById('input-area').innerHTML = `<button class="btn btn-add" onclick="tempPool.push({title:'新奖项',weight:10,desc:''});renderPoolTable()">＋ 增加行</button><button class="btn btn-save" onclick="api('managePool',{template:tempPool}).then(()=>openSection('gacha'))">💾 保存同步</button>`; }); }
+        function renderPoolTable() { let h = `<table class="mgr-table"><tr><th>奖励/说明</th><th>权重</th><th>控</th></tr>`; h += tempPool.map((item, i) => `<tr><td><input class="mgr-input" value="${item.title}" onchange="tempPool[${i}].title=this.value"><input class="mgr-input" style="color:var(--p);" value="${item.desc||''}" onchange="tempPool[${i}].desc=this.value"></td><td width="50"><input class="mgr-input" type="number" value="${item.weight}" onchange="tempPool[${i}].weight=parseInt(this.value)"></td><td width="30"><button onclick="tempPool.splice(${i},1);renderPoolTable()" style="color:red;border:none;background:none;font-size:16px;cursor:pointer;">×</button></td></tr>`).join(''); document.getElementById('view-body').innerHTML = h; }
+        function confirmCpn(id) { if(confirm("已履行？")) { api('confirmCoupon', { id }).then(() => openSection('gacha')); } }
+        function showViewer(id, url) { viewingId = id; document.getElementById('viewer-img').src = url; document.getElementById('viewer-overlay').style.display = 'flex'; document.getElementById('v-dl-btn').onclick = () => window.open(url); document.getElementById('v-del-btn').onclick = () => { if(confirm("确定删除？")) { api('delPhoto', { id: viewingId }).then(() => { closeViewer(); openGroup(currentGroup); }); } }; }
+        function closeViewer() { document.getElementById('viewer-overlay').style.display = 'none'; }
+        function applyCpn(id) { const n = prompt("留言："); if(n !== null) { api('applyCoupon', { id, note: n }).then(() => openSection('gacha')); } }
+        function saveComplaint() { const t = document.getElementById('cp-type').value, c = document.getElementById('cp-content').value; if(!c) return; api('addComplaint', { type: t, content: c }).then(() => openSection('complaint')); }
+        function deleteComplaint(id) { if(confirm("消气了？")) { api('delComplaint', { id }).then(() => openSection('complaint')); } }
+        function backAction() { document.getElementById('content-view').classList.add('hidden'); document.getElementById('main-view').classList.remove('hidden'); }
+        function addGroup() { const n = document.getElementById('new-group-name').value; if(!n) return; api('addGroup', { groupName: n }).then(() => openSection('album_groups')); }
+        function saveWish() { const v = document.getElementById('new-wish').value; if(!v) return; api('addWish', { content: v }).then(() => openSection('wishes')); }
         
-        // Pricing card interactions
-        document.querySelectorAll('.pricing-card button').forEach(button => {
-            button.addEventListener('click', function() {
-                const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
-                alert(`You selected the ${planName} plan. In a real implementation, you would be redirected to the checkout process.`);
-            });
-        });
+        async function doDraw() {
+            if (!lastGachaConfig || !lastGachaConfig.canDraw) { 
+                alert(`本周已经抽过啦！\n下周开启时间：\n${lastGachaConfig.nextDate}`); 
+                return; 
+            }
+            const res = await api('drawCoupon');
+            if (res && res.coupon) {
+                alert(`🎉 抽到了！\n${res.coupon.title}\n${res.coupon.desc}`);
+                openSection('gacha');
+            } else { alert("抽奖失败，请稍后再试~"); }
+        }
+
+        function initAudio() { audio.src = playlist[currentMusicIdx]; audio.play().then(()=>document.getElementById('play-btn').innerText="⏸️").catch(e=>console.log(e)); }
+        function toggleMusic() { if (audio.paused) { audio.play(); document.getElementById('play-btn').innerText = "⏸️"; } else { audio.pause(); document.getElementById('play-btn').innerText = "▶️"; } }
+        function nextMusic() { let n; do { n = Math.floor(Math.random() * playlist.length); } while (n === currentMusicIdx && playlist.length > 1); currentMusicIdx = n; initAudio(); }
+        audio.onended = nextMusic;
     </script>
 </body>
 </html>
